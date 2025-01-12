@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="/static/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="bg-neutral-950 text-white font-sans text-sm">
+    <div class="container mx-auto p-8">
+    <div class="bg-neutral-900 rounded mb-8 p-4 flex justify-between uppercase font-semibold">
+        <h1 class="">{name}</h1>
+        <h2 class="">{date}</h2>
+    </div>
+
+    <main class="max-md:space-y-4 md:flex gap-4">
+        <div class="w-full space-y-4">
+            <section class="grid grid-cols-2 gap-3">
+                <div class="bg-purple-300 text-neutral-950 rounded-xl p-5 flex flex-col items-center gap-y-4 font-semibold col-span-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2m3.3 14.71L11 12.41V7h2v4.59l3.71 3.71z"/>
+                    </svg>
+                    <div class="text-center"> 
+                        <p class="font-light text-xs">Time</p>
+                        <p class="text-xl font-extrabold">
+                            {{.DSData.TodayTime.ToTimeString}} / {{.DSData.DailyGoal.ToTimeString}}
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-green-300 text-neutral-950 rounded-xl p-5 flex flex-col items-center gap-y-4 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16">
+                        <path fill="currentColor" d="m13.637 2.363l1.676.335c.09.018.164.084.19.173a.25.25 0 0 1-.062.249l-1.373 1.374a.88.88 0 0 1-.619.256H12.31L9.45 7.611A1.5 1.5 0 1 1 6.5 8a1.5 1.5 0 0 1 1.889-1.449l2.861-2.862V2.552c0-.232.092-.455.256-.619L12.88.559a.25.25 0 0 1 .249-.062c.089.026.155.1.173.19Z"/><path fill="currentColor" d="M2 8a6 6 0 1 0 11.769-1.656a.751.751 0 1 1 1.442-.413a7.502 7.502 0 0 1-12.513 7.371A7.501 7.501 0 0 1 10.069.789a.75.75 0 0 1-.413 1.442A6 6 0 0 0 2 8"/><path fill="currentColor" d="M5 8a3.002 3.002 0 0 0 4.699 2.476a3 3 0 0 0 1.28-2.827a.748.748 0 0 1 1.045-.782a.75.75 0 0 1 .445.61A4.5 4.5 0 1 1 8.516 3.53a.75.75 0 1 1-.17 1.49A3 3 0 0 0 5 8"/>
+                    </svg>
+                    <div class="text-center"> 
+                        <p class="font-light text-xs">Goal Streak</p>
+                        <p class="text-xl font-extrabold">
+                            {{.DSData.GoalStreak}}
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-blue-300 text-neutral-950 rounded-xl p-5 flex flex-col items-center gap-y-4 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 12 16">
+                        <path fill-rule="evenodd" d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7c-2.2-1.16-2.67-4.52-.3-6.61c-.61 2.03.53 3.33 1.94 2.86c1.39-.47 2.3.53 2.27 1.67c-.02.78-.31 1.44-1.13 1.81c3.42-.59 4.78-3.42 4.78-5.56c0-2.84-2.53-3.22-1.25-5.61c-1.52.13-2.03 1.13-1.89 2.75c.09 1.08-1.02 1.8-1.86 1.33c-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z" fill="currentColor"/>
+                    </svg>
+                    <div class="text-center"> 
+                        <p class="font-light text-xs">Steak</p>
+                        <p class="text-xl font-extrabold">
+                            {{.DSData.PlatformStreak}}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-neutral-900 text-white rounded-xl p-5 py-8">
+                <div class="flex gap-3 mb-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2m3.3 14.71L11 12.41V7h2v4.59l3.71 3.71z"/>
+                    </svg>
+                    <div>
+                        <h3 class="font-light text-xs">Total Time</h3>
+                        <h3 class="text-xl font-bold">{{.DSData.WeekTime.ToTimeString}}</h3>
+                    </div>
+                </div>
+                <div class="flex justify-between px-3">
+                    {{range $day := .DaysOfWeek}}
+                        <div class="flex flex-col items-center gap-y-4 h-64">
+                            <div class="w-1.5 bg-neutral-400/50 rounded-full h-full flex items-end">
+                                <div class="bg-neutral-100 w-1.5 rounded-full" style="height: {{(index $.DSData.WeekGoalStatus $day).PercentOfGoalLimit}}%"></div>
+                            </div>
+
+                            <p class="text-neutral-400">{{$day}}</p>
+                        </div>
+                    {{end}}
+                </div>
+            </section>
+        </div>
+
+        <div class="w-full grid">
+            <section class="bg-neutral-900 rounded-xl p-5 h-fit">
+                <div class="flex gap-3 mb-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd">
+                        <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M18 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6M15.5 4a4.5 4.5 0 1 1 0 9h-7a2.5 2.5 0 0 0 0 5H13a1 1 0 1 1 0 2H8.5a4.5 4.5 0 1 1 0-9h7a2.5 2.5 0 0 0 0-5H11a1 1 0 1 1 0-2zM18 18a1 1 0 1 0 0 2a1 1 0 0 0 0-2M6 2a3 3 0 1 1 0 6a3 3 0 0 1 0-6m0 2a1 1 0 1 0 0 2a1 1 0 0 0 0-2"/></g>
+                    </svg>
+                    <div>
+                        <h3 class="font-light text-xs">Week Goal</h3>
+                        <h3 class="text-xl font-bold">35 km</h3>
+                    </div>
+                </div>
+                <div class="relative">
+                    <svg class="-rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-neutral-400/50" stroke-width="1"></circle>
+                        <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-neutral-100" stroke-width="1" stroke-dasharray="100" stroke-dashoffset="37" stroke-linecap="round"></circle>
+                    </svg>
+                    <div class="absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                        <span class="text-center text-2xl font-extrabold text-neutral-100">20 km</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>

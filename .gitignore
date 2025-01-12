@@ -1,0 +1,8 @@
+/database
+/static
+/node_modules
+
+go.work
+go.work.sum
+
+.env
